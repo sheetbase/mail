@@ -1,9 +1,14 @@
-import {Options, Extendable, Category, Template} from '../types';
+import {OptionService as ServerOptionService} from '@sheetbase/server';
+
+import {Options, Category, Template} from '../types/mail.type';
 
 export class OptionService {
   private options: Options;
 
-  constructor(options: Options) {
+  constructor(
+    private serverOptionService: ServerOptionService,
+    options: Options
+  ) {
     this.options = {
       categories: {},
       templates: {},
@@ -29,8 +34,12 @@ export class OptionService {
     return this.options;
   }
 
-  setOptions(options: Options | Extendable) {
-    return (this.options = {...this.options, ...options});
+  getAppName() {
+    const {appName} = this.serverOptionService.getOptions();
+    if (!appName) {
+      throw new Error('server/no-app-name');
+    }
+    return appName;
   }
 
   getCategory(categoryName: string) {

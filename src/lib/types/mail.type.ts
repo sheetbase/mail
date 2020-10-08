@@ -1,11 +1,14 @@
-export interface Options extends Extendable {
-  appName: string;
-}
-
-export interface Extendable {
+export interface Options {
   forwarding?: string;
   categories?: Record<string, string | Category>;
   templates?: Record<string, Template<unknown>>;
+}
+
+export interface AuthData {
+  uid: string;
+  sub: string;
+  tty: 'ID';
+  [claim: string]: unknown;
 }
 
 export interface Category {

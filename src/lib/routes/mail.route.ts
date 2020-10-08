@@ -1,14 +1,17 @@
-import {AuthData} from '@sheetbase/auth';
-
-import {MailingInput} from '../types';
+import {AuthData, MailingInput} from '../types/mail.type';
 import {MailService} from '../services/mail.service';
 
 export class MailRoute {
   endpoint = '/mail';
 
-  disabled = ['put', 'post', 'patch'];
+  disabled = ['put', 'patch'];
 
-  errors = {};
+  errors = {
+    'mail/missing-recipient': 'Missing required recipient for the action',
+    'mail/no-access':
+      'Current auth user has no access permission for the resource.',
+    'mail/invalid-input': 'Invalid input.',
+  };
 
   constructor(private mailService: MailService) {}
 
@@ -50,11 +53,16 @@ export class MailRoute {
     };
   }) {
     const {threadId, messageId, input, replyAll} = req.body;
-    const {sub: email} = req.data.auth;
+    const authEmail = req.data.auth.sub;
     if (threadId) {
-      return this.mailService.replyThread(email, threadId, input, replyAll);
+      return this.mailService.replyThread(authEmail, threadId, input, replyAll);
     } else if (messageId) {
-      return this.mailService.replyMessage(email, messageId, input, replyAll);
+      return this.mailService.replyMessage(
+        authEmail,
+        messageId,
+        input,
+        replyAll
+      );
     } else {
       throw new Error('mail/no-thread-or-message-id');
     }

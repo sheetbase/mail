@@ -1,8 +1,8 @@
-/* eslint-disable no-undef */
 export class LabelService {
   constructor() {}
 
   getLabel(name: string) {
+    // eslint-disable-next-line no-undef
     return GmailApp.getUserLabelByName(name) || GmailApp.createLabel(name);
   }
 

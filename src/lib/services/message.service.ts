@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import {Thread} from '@sheetbase/models';
 
 import {HelperService} from './helper.service';
@@ -12,6 +11,7 @@ export class MessageService {
 
   getUserMessage(email: string, messageId: string) {
     let result: GoogleAppsScript.Gmail.GmailMessage | undefined;
+    // eslint-disable-next-line no-undef
     const message = GmailApp.getMessageById(messageId);
     const from = message.getFrom();
     const to = message.getTo();

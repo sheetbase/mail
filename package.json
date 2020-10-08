@@ -1,6 +1,6 @@
 {
   "name": "@sheetbase/mail",
-  "version": "3.0.0-beta1",
+  "version": "3.0.0",
   "description": "Send email using Gmail in Sheetbase backend app.",
   "author": "Sheetbase",
   "homepage": "https://sheetbase.dev",
@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@sheetbase/models": "^3.0.0",
-    "@sheetbase/server": "^3.0.0"
+    "@sheetbase/server": "^3.0.5"
   },
   "devDependencies": {
     "@sheetbase/app-scripts": "^3.0.0",

@@ -1,8 +1,8 @@
 <section id="head" data-note="AUTO-GENERATED CONTENT, DO NOT EDIT DIRECTLY!">
 
-# @sheetbase/server
+# @sheetbase/mail
 
-**Build server app on Google Apps Script.**
+**Send email using Gmail in Sheetbase backend app.**
 
 </section>
 
@@ -13,13 +13,17 @@
 - [Lib](#lib)
   - [Lib properties](#lib-properties)
   - [Lib methods](#lib-methods)
-    - [`registerRoutes(routeEnabling?)`](#lib-registerroutes-0)
+    - [`registerRoutes(routeEnabling?, middlewares?)`](#lib-registerroutes-0)
 - [Routing](#routing)
+  - [Errors](#routing-errors)
   - [Routes](#routing-routes)
     - [Routes overview](#routing-routes-overview)
     - [Routes detail](#routing-routes-detail)
-      - [`PUT` /logging](#PUT__logging)
-      - [`GET` /system](#GET__system)
+      - [`GET` /mail](#GET__mail)
+      - [`PATCH` /mail](#PATCH__mail)
+      - [`PUT` /mail](#PUT__mail)
+      - [`GET` /mail/thread](#GET__mail_thread)
+      - [`GET` /mail/threads](#GET__mail_threads)
 - [Detail API reference](https://sheetbase.github.io/server)
 
 
@@ -30,22 +34,22 @@
 <h2><a name="installation"><p>Installation</p>
 </a></h2>
 
-- Install: `npm install --save @sheetbase/server`
+- Install: `npm install --save @sheetbase/mail`
 
 - Usage:
 
 ```ts
 // 1. import module
-import { ServerModule } from "@sheetbase/server";
+import { MailModule } from "@sheetbase/mail";
 
 // 2. create an instance
 export class App {
   // the object
-  serverModule: ServerModule;
+  mailModule: MailModule;
 
   // initiate the instance
   constructor() {
-    this.serverModule = new ServerModule(/* options */);
+    this.mailModule = new MailModule(/* options */);
   }
 }
 ```
@@ -57,13 +61,11 @@ export class App {
 <h2><a name="options"><p>Options</p>
 </a></h2>
 
-| Name                                                                           | Type                                                                                                          | Description                           |
-| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- | ------------------------------------- |
-| [apiKeys?](https://sheetbase.github.io/server/interfaces/options.html#apikeys) | <code><a href="https://sheetbase.github.io/server/interfaces/apikeys.html" target="_blank">ApiKeys</a></code> | Multiple api keys                     |
-| [failure?](https://sheetbase.github.io/server/interfaces/options.html#failure) | <code>undefined \| function</code>                                                                            | Handler for invalid api key           |
-| [key?](https://sheetbase.github.io/server/interfaces/options.html#key)         | <code>undefined \| string</code>                                                                              | Single api key                        |
-| [trigger?](https://sheetbase.github.io/server/interfaces/options.html#trigger) | <code>undefined \| function</code>                                                                            | Trigger every time an api key is used |
-| [views?](https://sheetbase.github.io/server/interfaces/options.html#views)     | <code>undefined \| string</code>                                                                              | The view template folder              |
+| Name                                                                                 | Type                                            | Description |
+| ------------------------------------------------------------------------------------ | ----------------------------------------------- | ----------- |
+| [categories?](https://sheetbase.github.io/server/interfaces/options.html#categories) | <code>Record<string, string \| Category></code> |             |
+| [forwarding?](https://sheetbase.github.io/server/interfaces/options.html#forwarding) | <code>undefined \| string</code>                |             |
+| [templates?](https://sheetbase.github.io/server/interfaces/options.html#templates)   | <code>Record<string, Template<unknown>></code>  |             |
 
 </section>
 
@@ -79,37 +81,39 @@ export class App {
 
 | Name                                                                                       | Type                                                                                                                           | Description |
 | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ----------- |
-| [apiKeyService](https://sheetbase.github.io/server/classes/lib.html#apikeyservice)         | <code><a href="https://sheetbase.github.io/server/classes/apikeyservice.html" target="_blank">APIKeyService</a></code>         |             |
-| [httpService](https://sheetbase.github.io/server/classes/lib.html#httpservice)             | <code><a href="https://sheetbase.github.io/server/classes/httpservice.html" target="_blank">HttpService</a></code>             |             |
-| [loggingRoute](https://sheetbase.github.io/server/classes/lib.html#loggingroute)           | <code><a href="https://sheetbase.github.io/server/classes/loggingroute.html" target="_blank">LoggingRoute</a></code>           |             |
-| [middlewareService](https://sheetbase.github.io/server/classes/lib.html#middlewareservice) | <code><a href="https://sheetbase.github.io/server/classes/middlewareservice.html" target="_blank">MiddlewareService</a></code> |             |
-| [monitoringService](https://sheetbase.github.io/server/classes/lib.html#monitoringservice) | <code><a href="https://sheetbase.github.io/server/classes/monitoringservice.html" target="_blank">MonitoringService</a></code> |             |
-| [responseService](https://sheetbase.github.io/server/classes/lib.html#responseservice)     | <code><a href="https://sheetbase.github.io/server/classes/responseservice.html" target="_blank">ResponseService</a></code>     |             |
-| [routerService](https://sheetbase.github.io/server/classes/lib.html#routerservice)         | <code><a href="https://sheetbase.github.io/server/classes/routerservice.html" target="_blank">RouterService</a></code>         |             |
-| [serverService](https://sheetbase.github.io/server/classes/lib.html#serverservice)         | <code><a href="https://sheetbase.github.io/server/classes/serverservice.html" target="_blank">ServerService</a></code>         |             |
-| [systemRoute](https://sheetbase.github.io/server/classes/lib.html#systemroute)             | <code><a href="https://sheetbase.github.io/server/classes/systemroute.html" target="_blank">SystemRoute</a></code>             |             |
+| [attachmentService](https://sheetbase.github.io/server/classes/lib.html#attachmentservice) | <code><a href="https://sheetbase.github.io/server/classes/attachmentservice.html" target="_blank">AttachmentService</a></code> |             |
+| [helperService](https://sheetbase.github.io/server/classes/lib.html#helperservice)         | <code><a href="https://sheetbase.github.io/server/classes/helperservice.html" target="_blank">HelperService</a></code>         |             |
+| [labelService](https://sheetbase.github.io/server/classes/lib.html#labelservice)           | <code><a href="https://sheetbase.github.io/server/classes/labelservice.html" target="_blank">LabelService</a></code>           |             |
+| [mailRoute](https://sheetbase.github.io/server/classes/lib.html#mailroute)                 | <code><a href="https://sheetbase.github.io/server/classes/mailroute.html" target="_blank">MailRoute</a></code>                 |             |
+| [mailService](https://sheetbase.github.io/server/classes/lib.html#mailservice)             | <code><a href="https://sheetbase.github.io/server/classes/mailservice.html" target="_blank">MailService</a></code>             |             |
+| [mailThreadRoute](https://sheetbase.github.io/server/classes/lib.html#mailthreadroute)     | <code><a href="https://sheetbase.github.io/server/classes/mailthreadroute.html" target="_blank">MailThreadRoute</a></code>     |             |
+| [mailThreadsRoute](https://sheetbase.github.io/server/classes/lib.html#mailthreadsroute)   | <code><a href="https://sheetbase.github.io/server/classes/mailthreadsroute.html" target="_blank">MailThreadsRoute</a></code>   |             |
+| [messageService](https://sheetbase.github.io/server/classes/lib.html#messageservice)       | <code><a href="https://sheetbase.github.io/server/classes/messageservice.html" target="_blank">MessageService</a></code>       |             |
+| [optionService](https://sheetbase.github.io/server/classes/lib.html#optionservice)         | <code><a href="https://sheetbase.github.io/server/classes/optionservice.html" target="_blank">OptionService</a></code>         |             |
+| [threadService](https://sheetbase.github.io/server/classes/lib.html#threadservice)         | <code><a href="https://sheetbase.github.io/server/classes/threadservice.html" target="_blank">ThreadService</a></code>         |             |
 
 <h3><a name="lib-methods"><p>Lib methods</p>
 </a></h3>
 
-| Function                                                | Returns type                                                                                                           | Description              |
-| ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------ |
-| [registerRoutes(routeEnabling?)](#lib-registerroutes-0) | <code><a href="https://sheetbase.github.io/server/classes/routerservice.html" target="_blank">RouterService</a></code> | Expose the module routes |
+| Function                                                              | Returns type                 | Description              |
+| --------------------------------------------------------------------- | ---------------------------- | ------------------------ |
+| [registerRoutes(routeEnabling?, middlewares?)](#lib-registerroutes-0) | <code>RouterService<></code> | Expose the module routes |
 
-<h4><a name="lib-registerroutes-0" href="https://sheetbase.github.io/server/classes/lib.html#registerroutes"><p><code>registerRoutes(routeEnabling?)</code></p>
+<h4><a name="lib-registerroutes-0" href="https://sheetbase.github.io/server/classes/lib.html#registerroutes"><p><code>registerRoutes(routeEnabling?, middlewares?)</code></p>
 </a></h4>
 
 **Expose the module routes**
 
 **Parameters**
 
-| Param         | Type                                                                                                                                | Description |
-| ------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| routeEnabling | <code>true \| <a href="https://sheetbase.github.io/server/interfaces/disabledroutes.html" target="_blank">DisabledRoutes</a></code> |             |
+| Param         | Type                                         | Description |
+| ------------- | -------------------------------------------- | ----------- |
+| routeEnabling | <code>true \| DisabledRoutes</code>          |             |
+| middlewares   | <code>Middlewares \| RouteMiddlewares</code> |             |
 
 **Returns**
 
-<code><a href="https://sheetbase.github.io/server/classes/routerservice.html" target="_blank">RouterService</a></code>
+<code>RouterService<></code>
 
 ---
 
@@ -120,11 +124,20 @@ export class App {
 <h2><a name="routing"><p>Routing</p>
 </a></h2>
 
-**ServerModule** provides REST API endpoints allowing clients to access server resources. Theses enpoints are not exposed by default, to expose the endpoints:
+**MailModule** provides REST API endpoints allowing clients to access server resources. Theses enpoints are not exposed by default, to expose the endpoints:
 
 ```ts
-ServerModule.registerRoutes(routeEnabling?);
+MailModule.registerRoutes(routeEnabling?);
 ```
+
+<h3><a name="routing-errors"><p>Errors</p>
+</a></h3>
+
+**MailModule** returns these routing errors, you may use the error code to customize the message:
+
+- `mail/invalid-input`: Invalid input.
+- `mail/missing-recipient`: Missing required recipient for the action
+- `mail/no-access`: Current auth user has no access permission for the resource.
 
 <h3><a name="routing-routes"><p>Routes</p>
 </a></h3>
@@ -132,40 +145,122 @@ ServerModule.registerRoutes(routeEnabling?);
 <h4><a name="routing-routes-overview"><p>Routes overview</p>
 </a></h4>
 
-| Route                     | Method | Disabled | Description               |
-| ------------------------- | ------ | -------- | ------------------------- |
-| [/logging](#PUT__logging) | `PUT`  | `true`   | Set a server log          |
-| [/system](#GET__system)   | `GET`  |          | Get the system infomation |
+| Route                               | Method  | Disabled | Description                                                                      |
+| ----------------------------------- | ------- | -------- | -------------------------------------------------------------------------------- |
+| [/mail](#GET__mail)                 | `GET`   |          | Get mail information                                                             |
+| [/mail](#PATCH__mail)               | `PATCH` | `true`   | Reply to a thread/message                                                        |
+| [/mail](#PUT__mail)                 | `PUT`   | `true`   | Send an email                                                                    |
+| [/mail/thread](#GET__mail_thread)   | `GET`   | `true`   | Get a single message/thread                                                      |
+| [/mail/threads](#GET__mail_threads) | `GET`   | `true`   | Get threads (list by category/single - parent + children/single - children only) |
 
 <h4><a name="routing-routes-detail"><p>Routes detail</p>
 </a></h4>
 
-<h5><a name="PUT__logging"><p><code>PUT</code> /logging</p>
+<h5><a name="GET__mail"><p><code>GET</code> /mail</p>
 </a></h5>
 
-`DISABLED` Set a server log
-
-**Request body**
-
-| Name      | Type             | Description       |
-| --------- | ---------------- | ----------------- |
-| **level** | <a data-sref="LoggingLevel" href="https://sheetbase.github.io/server/globals.html#logginglevel"><code>LoggingLevel</code></a> | The logging level |
-| **value** | <a data-sref="LoggingValue" href="https://sheetbase.github.io/server/globals.html#loggingvalue"><code>LoggingValue</code></a> | The logging value |
-
-**Response**
-
-`void`
-
----
-
-<h5><a name="GET__system"><p><code>GET</code> /system</p>
-</a></h5>
-
-Get the system infomation
+Get mail information
 
 **Response**
 
 `object`
+
+---
+
+<h5><a name="PATCH__mail"><p><code>PATCH</code> /mail</p>
+</a></h5>
+
+`DISABLED` Reply to a thread/message
+
+**Request body**
+
+| Name       | Type                      | Description |
+| ---------- | ------------------------- | ----------- |
+| threadId?  | <a data-sref="string"><code>string</code></a>                |             |
+| messageId? | <a data-sref="string"><code>string</code></a>                |             |
+| **input**  | <a data-sref="MailingInput<unknown>"><code>MailingInput<unknown></code></a> |             |
+| replyAll?  | <a data-sref="boolean"><code>boolean</code></a>               |             |
+
+**Middleware data**
+
+| Name     | Type         | Description |
+| -------- | ------------ | ----------- |
+| **auth** | <a data-sref="AuthData" href="https://sheetbase.github.io/server/interfaces/authdata.html"><code>AuthData</code></a> |             |
+
+**Response**
+
+`GmailMessage | GmailThread`
+
+---
+
+<h5><a name="PUT__mail"><p><code>PUT</code> /mail</p>
+</a></h5>
+
+`DISABLED` Send an email
+
+**Request body**
+
+| Name          | Type                      | Description |
+| ------------- | ------------------------- | ----------- |
+| **recipient** | <a data-sref="string"><code>string</code></a>                |             |
+| **subject**   | <a data-sref="string"><code>string</code></a>                |             |
+| **input**     | <a data-sref="MailingInput<unknown>"><code>MailingInput<unknown></code></a> |             |
+| categoryName? | <a data-sref="string"><code>string</code></a>                |             |
+
+**Response**
+
+`object`
+
+---
+
+<h5><a name="GET__mail_thread"><p><code>GET</code> /mail/thread</p>
+</a></h5>
+
+`DISABLED` Get a single message/thread
+
+**Request query**
+
+| Name       | Type       | Description |
+| ---------- | ---------- | ----------- |
+| threadId?  | <a data-sref="string"><code>string</code></a> |             |
+| messageId? | <a data-sref="string"><code>string</code></a> |             |
+
+**Middleware data**
+
+| Name     | Type         | Description |
+| -------- | ------------ | ----------- |
+| **auth** | <a data-sref="AuthData" href="https://sheetbase.github.io/server/interfaces/authdata.html"><code>AuthData</code></a> |             |
+
+**Response**
+
+`null | Thread`
+
+---
+
+<h5><a name="GET__mail_threads"><p><code>GET</code> /mail/threads</p>
+</a></h5>
+
+`DISABLED` Get threads (list by category/single - parent + children/single - children only)
+
+**Request query**
+
+| Name          | Type        | Description |
+| ------------- | ----------- | ----------- |
+| threadId?     | <a data-sref="string"><code>string</code></a>  |             |
+| categoryName? | <a data-sref="string"><code>string</code></a>  |             |
+| childrenOnly? | <a data-sref="boolean"><code>boolean</code></a> |             |
+| full?         | <a data-sref="boolean"><code>boolean</code></a> |             |
+| grouping?     | <a data-sref="boolean"><code>boolean</code></a> |             |
+
+**Middleware data**
+
+| Name     | Type         | Description |
+| -------- | ------------ | ----------- |
+| **auth** | <a data-sref="AuthData" href="https://sheetbase.github.io/server/interfaces/authdata.html"><code>AuthData</code></a> |             |
+
+**Response**
+
+`Thread[] | GroupingThread | GroupingThread[]`
 
 ---
 
@@ -175,6 +270,6 @@ Get the system infomation
 
 ## License
 
-**@sheetbase/server** is released under the [MIT](https://github.com/sheetbase/server/blob/master/LICENSE) license.
+**@sheetbase/mail** is released under the [MIT](https://github.com/sheetbase/server/blob/master/LICENSE) license.
 
 </section>

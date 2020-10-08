@@ -1,0 +1,612 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>@sheetbase/mail</title>
+	<meta name="description" content="Documentation for @sheetbase/mail">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">@sheetbase/mail</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1>@sheetbase/mail</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<section id="head" data-note="AUTO-GENERATED CONTENT, DO NOT EDIT DIRECTLY!">
+					<a href="#sheetbasemail" id="sheetbasemail" style="color: inherit; text-decoration: none;">
+						<h1>@sheetbase/mail</h1>
+					</a>
+					<p><strong>Send email using Gmail in Sheetbase backend app.</strong></p>
+				</section>
+				<section id="tocx" data-note="AUTO-GENERATED CONTENT, DO NOT EDIT DIRECTLY!">
+					<ul>
+						<li><a href="#installation">Installation</a></li>
+						<li><a href="#options">Options</a></li>
+						<li><a href="#lib">Lib</a><ul>
+								<li><a href="#lib-properties">Lib properties</a></li>
+								<li><a href="#lib-methods">Lib methods</a><ul>
+										<li><a href="#lib-registerroutes-0"><code>registerRoutes(routeEnabling?, middlewares?)</code></a></li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li><a href="#routing">Routing</a><ul>
+								<li><a href="#routing-errors">Errors</a></li>
+								<li><a href="#routing-routes">Routes</a><ul>
+										<li><a href="#routing-routes-overview">Routes overview</a></li>
+										<li><a href="#routing-routes-detail">Routes detail</a><ul>
+												<li><a href="#GET__mail"><code>GET</code> /mail</a></li>
+												<li><a href="#PATCH__mail"><code>PATCH</code> /mail</a></li>
+												<li><a href="#PUT__mail"><code>PUT</code> /mail</a></li>
+												<li><a href="#GET__mail_thread"><code>GET</code> /mail/thread</a></li>
+												<li><a href="#GET__mail_threads"><code>GET</code> /mail/threads</a></li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li><a href="https://sheetbase.github.io/server">Detail API reference</a></li>
+					</ul>
+				</section>
+				<section id="installation" data-note="AUTO-GENERATED CONTENT, DO NOT EDIT DIRECTLY!">
+					<h2><a name="installation"><p>Installation</p>
+					</a></h2>
+					<ul>
+						<li><p>Install: <code>npm install --save @sheetbase/mail</code></p>
+						</li>
+						<li><p>Usage:</p>
+						</li>
+					</ul>
+					<pre><code class="language-ts"><span class="hljs-comment">// 1. import module</span>
+<span class="hljs-keyword">import</span> { MailModule } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@sheetbase/mail&quot;</span>;
+
+<span class="hljs-comment">// 2. create an instance</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> App {
+  <span class="hljs-comment">// the object</span>
+  mailModule: MailModule;
+
+  <span class="hljs-comment">// initiate the instance</span>
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-built_in">this</span>.mailModule = <span class="hljs-keyword">new</span> MailModule(<span class="hljs-comment">/* options */</span>);
+  }
+}</code></pre>
+				</section>
+				<section id="options" data-note="AUTO-GENERATED CONTENT, DO NOT EDIT DIRECTLY!">
+					<h2><a name="options"><p>Options</p>
+					</a></h2>
+					<table>
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Type</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody><tr>
+								<td><a href="https://sheetbase.github.io/server/interfaces/options.html#categories">categories?</a></td>
+								<td><code>Record<string, string | Category></code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><a href="https://sheetbase.github.io/server/interfaces/options.html#forwarding">forwarding?</a></td>
+								<td><code>undefined | string</code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><a href="https://sheetbase.github.io/server/interfaces/options.html#templates">templates?</a></td>
+								<td><code>Record<string, Template<unknown>></code></td>
+								<td></td>
+							</tr>
+					</tbody></table>
+				</section>
+				<section id="lib" data-note="AUTO-GENERATED CONTENT, DO NOT EDIT DIRECTLY!">
+					<h2><a name="lib" href="https://sheetbase.github.io/server/classes/lib.html"><p>Lib</p>
+					</a></h2>
+					<p><strong>The <code>Lib</code> class.</strong></p>
+					<h3><a name="lib-properties"><p>Lib properties</p>
+					</a></h3>
+					<table>
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Type</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody><tr>
+								<td><a href="https://sheetbase.github.io/server/classes/lib.html#attachmentservice">attachmentService</a></td>
+								<td><code><a href="https://sheetbase.github.io/server/classes/attachmentservice.html" target="_blank">AttachmentService</a></code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><a href="https://sheetbase.github.io/server/classes/lib.html#helperservice">helperService</a></td>
+								<td><code><a href="https://sheetbase.github.io/server/classes/helperservice.html" target="_blank">HelperService</a></code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><a href="https://sheetbase.github.io/server/classes/lib.html#labelservice">labelService</a></td>
+								<td><code><a href="https://sheetbase.github.io/server/classes/labelservice.html" target="_blank">LabelService</a></code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><a href="https://sheetbase.github.io/server/classes/lib.html#mailroute">mailRoute</a></td>
+								<td><code><a href="https://sheetbase.github.io/server/classes/mailroute.html" target="_blank">MailRoute</a></code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><a href="https://sheetbase.github.io/server/classes/lib.html#mailservice">mailService</a></td>
+								<td><code><a href="https://sheetbase.github.io/server/classes/mailservice.html" target="_blank">MailService</a></code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><a href="https://sheetbase.github.io/server/classes/lib.html#mailthreadroute">mailThreadRoute</a></td>
+								<td><code><a href="https://sheetbase.github.io/server/classes/mailthreadroute.html" target="_blank">MailThreadRoute</a></code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><a href="https://sheetbase.github.io/server/classes/lib.html#mailthreadsroute">mailThreadsRoute</a></td>
+								<td><code><a href="https://sheetbase.github.io/server/classes/mailthreadsroute.html" target="_blank">MailThreadsRoute</a></code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><a href="https://sheetbase.github.io/server/classes/lib.html#messageservice">messageService</a></td>
+								<td><code><a href="https://sheetbase.github.io/server/classes/messageservice.html" target="_blank">MessageService</a></code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><a href="https://sheetbase.github.io/server/classes/lib.html#optionservice">optionService</a></td>
+								<td><code><a href="https://sheetbase.github.io/server/classes/optionservice.html" target="_blank">OptionService</a></code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><a href="https://sheetbase.github.io/server/classes/lib.html#threadservice">threadService</a></td>
+								<td><code><a href="https://sheetbase.github.io/server/classes/threadservice.html" target="_blank">ThreadService</a></code></td>
+								<td></td>
+							</tr>
+					</tbody></table>
+					<h3><a name="lib-methods"><p>Lib methods</p>
+					</a></h3>
+					<table>
+						<thead>
+							<tr>
+								<th>Function</th>
+								<th>Returns type</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody><tr>
+								<td><a href="#lib-registerroutes-0">registerRoutes(routeEnabling?, middlewares?)</a></td>
+								<td><code>RouterService<></code></td>
+								<td>Expose the module routes</td>
+							</tr>
+					</tbody></table>
+					<h4><a name="lib-registerroutes-0" href="https://sheetbase.github.io/server/classes/lib.html#registerroutes"><p><code>registerRoutes(routeEnabling?, middlewares?)</code></p>
+					</a></h4>
+					<p><strong>Expose the module routes</strong></p>
+					<p><strong>Parameters</strong></p>
+					<table>
+						<thead>
+							<tr>
+								<th>Param</th>
+								<th>Type</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody><tr>
+								<td>routeEnabling</td>
+								<td><code>true | DisabledRoutes</code></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>middlewares</td>
+								<td><code>Middlewares | RouteMiddlewares</code></td>
+								<td></td>
+							</tr>
+					</tbody></table>
+					<p><strong>Returns</strong></p>
+					<p><code>RouterService<></code></p>
+					<hr>
+				</section>
+				<section id="routing" data-note="AUTO-GENERATED CONTENT, DO NOT EDIT DIRECTLY!">
+					<h2><a name="routing"><p>Routing</p>
+					</a></h2>
+					<p><strong>MailModule</strong> provides REST API endpoints allowing clients to access server resources. Theses enpoints are not exposed by default, to expose the endpoints:</p>
+					<pre><code class="language-ts">MailModule.registerRoutes(routeEnabling?);</code></pre>
+					<h3><a name="routing-errors"><p>Errors</p>
+					</a></h3>
+					<p><strong>MailModule</strong> returns these routing errors, you may use the error code to customize the message:</p>
+					<ul>
+						<li><code>mail/invalid-input</code>: Invalid input.</li>
+						<li><code>mail/missing-recipient</code>: Missing required recipient for the action</li>
+						<li><code>mail/no-access</code>: Current auth user has no access permission for the resource.</li>
+					</ul>
+					<h3><a name="routing-routes"><p>Routes</p>
+					</a></h3>
+					<h4><a name="routing-routes-overview"><p>Routes overview</p>
+					</a></h4>
+					<table>
+						<thead>
+							<tr>
+								<th>Route</th>
+								<th>Method</th>
+								<th>Disabled</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody><tr>
+								<td><a href="#GET__mail">/mail</a></td>
+								<td><code>GET</code></td>
+								<td></td>
+								<td>Get mail information</td>
+							</tr>
+							<tr>
+								<td><a href="#PATCH__mail">/mail</a></td>
+								<td><code>PATCH</code></td>
+								<td><code>true</code></td>
+								<td>Reply to a thread/message</td>
+							</tr>
+							<tr>
+								<td><a href="#PUT__mail">/mail</a></td>
+								<td><code>PUT</code></td>
+								<td><code>true</code></td>
+								<td>Send an email</td>
+							</tr>
+							<tr>
+								<td><a href="#GET__mail_thread">/mail/thread</a></td>
+								<td><code>GET</code></td>
+								<td><code>true</code></td>
+								<td>Get a single message/thread</td>
+							</tr>
+							<tr>
+								<td><a href="#GET__mail_threads">/mail/threads</a></td>
+								<td><code>GET</code></td>
+								<td><code>true</code></td>
+								<td>Get threads (list by category/single - parent + children/single - children only)</td>
+							</tr>
+					</tbody></table>
+					<h4><a name="routing-routes-detail"><p>Routes detail</p>
+					</a></h4>
+					<h5><a name="GET__mail"><p><code>GET</code> /mail</p>
+					</a></h5>
+					<p>Get mail information</p>
+					<p><strong>Response</strong></p>
+					<p><code>object</code></p>
+					<hr>
+					<h5><a name="PATCH__mail"><p><code>PATCH</code> /mail</p>
+					</a></h5>
+					<p><code>DISABLED</code> Reply to a thread/message</p>
+					<p><strong>Request body</strong></p>
+					<table>
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Type</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody><tr>
+								<td>threadId?</td>
+								<td><a data-sref="string"><code>string</code></a></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>messageId?</td>
+								<td><a data-sref="string"><code>string</code></a></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><strong>input</strong></td>
+								<td><a data-sref="MailingInput<unknown>"><code>MailingInput<unknown></code></a></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>replyAll?</td>
+								<td><a data-sref="boolean"><code>boolean</code></a></td>
+								<td></td>
+							</tr>
+					</tbody></table>
+					<p><strong>Middleware data</strong></p>
+					<table>
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Type</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody><tr>
+								<td><strong>auth</strong></td>
+								<td><a data-sref="AuthData" href="https://sheetbase.github.io/server/interfaces/authdata.html"><code>AuthData</code></a></td>
+								<td></td>
+							</tr>
+					</tbody></table>
+					<p><strong>Response</strong></p>
+					<p><code>GmailMessage | GmailThread</code></p>
+					<hr>
+					<h5><a name="PUT__mail"><p><code>PUT</code> /mail</p>
+					</a></h5>
+					<p><code>DISABLED</code> Send an email</p>
+					<p><strong>Request body</strong></p>
+					<table>
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Type</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody><tr>
+								<td><strong>recipient</strong></td>
+								<td><a data-sref="string"><code>string</code></a></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><strong>subject</strong></td>
+								<td><a data-sref="string"><code>string</code></a></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><strong>input</strong></td>
+								<td><a data-sref="MailingInput<unknown>"><code>MailingInput<unknown></code></a></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>categoryName?</td>
+								<td><a data-sref="string"><code>string</code></a></td>
+								<td></td>
+							</tr>
+					</tbody></table>
+					<p><strong>Response</strong></p>
+					<p><code>object</code></p>
+					<hr>
+					<h5><a name="GET__mail_thread"><p><code>GET</code> /mail/thread</p>
+					</a></h5>
+					<p><code>DISABLED</code> Get a single message/thread</p>
+					<p><strong>Request query</strong></p>
+					<table>
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Type</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody><tr>
+								<td>threadId?</td>
+								<td><a data-sref="string"><code>string</code></a></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>messageId?</td>
+								<td><a data-sref="string"><code>string</code></a></td>
+								<td></td>
+							</tr>
+					</tbody></table>
+					<p><strong>Middleware data</strong></p>
+					<table>
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Type</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody><tr>
+								<td><strong>auth</strong></td>
+								<td><a data-sref="AuthData" href="https://sheetbase.github.io/server/interfaces/authdata.html"><code>AuthData</code></a></td>
+								<td></td>
+							</tr>
+					</tbody></table>
+					<p><strong>Response</strong></p>
+					<p><code>null | Thread</code></p>
+					<hr>
+					<h5><a name="GET__mail_threads"><p><code>GET</code> /mail/threads</p>
+					</a></h5>
+					<p><code>DISABLED</code> Get threads (list by category/single - parent + children/single - children only)</p>
+					<p><strong>Request query</strong></p>
+					<table>
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Type</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody><tr>
+								<td>threadId?</td>
+								<td><a data-sref="string"><code>string</code></a></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>categoryName?</td>
+								<td><a data-sref="string"><code>string</code></a></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>childrenOnly?</td>
+								<td><a data-sref="boolean"><code>boolean</code></a></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>full?</td>
+								<td><a data-sref="boolean"><code>boolean</code></a></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>grouping?</td>
+								<td><a data-sref="boolean"><code>boolean</code></a></td>
+								<td></td>
+							</tr>
+					</tbody></table>
+					<p><strong>Middleware data</strong></p>
+					<table>
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Type</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody><tr>
+								<td><strong>auth</strong></td>
+								<td><a data-sref="AuthData" href="https://sheetbase.github.io/server/interfaces/authdata.html"><code>AuthData</code></a></td>
+								<td></td>
+							</tr>
+					</tbody></table>
+					<p><strong>Response</strong></p>
+					<p><code>Thread[] | GroupingThread | GroupingThread[]</code></p>
+					<hr>
+				</section>
+				<section id="license" data-note="AUTO-GENERATED CONTENT, DO NOT EDIT DIRECTLY!">
+					<a href="#license" id="license" style="color: inherit; text-decoration: none;">
+						<h2>License</h2>
+					</a>
+					<p><strong>@sheetbase/mail</strong> is released under the <a href="https://github.com/sheetbase/server/blob/master/LICENSE">MIT</a> license.</p>
+				</section>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="classes/attachmentservice.html" class="tsd-kind-icon">Attachment<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/helperservice.html" class="tsd-kind-icon">Helper<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/labelservice.html" class="tsd-kind-icon">Label<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/lib.html" class="tsd-kind-icon">Lib</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/mailroute.html" class="tsd-kind-icon">Mail<wbr>Route</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/mailservice.html" class="tsd-kind-icon">Mail<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/mailthreadroute.html" class="tsd-kind-icon">Mail<wbr>Thread<wbr>Route</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/mailthreadsroute.html" class="tsd-kind-icon">Mail<wbr>Threads<wbr>Route</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/messageservice.html" class="tsd-kind-icon">Message<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/optionservice.html" class="tsd-kind-icon">Option<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/threadservice.html" class="tsd-kind-icon">Thread<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/authdata.html" class="tsd-kind-icon">Auth<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/category.html" class="tsd-kind-icon">Category</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/mailingdata.html" class="tsd-kind-icon">Mailing<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/mailinginput.html" class="tsd-kind-icon">Mailing<wbr>Input</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/mailingoptions.html" class="tsd-kind-icon">Mailing<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/options.html" class="tsd-kind-icon">Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/templating.html" class="tsd-kind-icon">Templating</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="globals.html#template" class="tsd-kind-icon">Template</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

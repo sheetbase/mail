@@ -1,7 +1,6 @@
-/* eslint-disable no-undef */
 import {Thread, GroupingThread} from '@sheetbase/models';
 
-import {Category} from '../types';
+import {Category} from '../types/mail.type';
 import {OptionService} from './option.service';
 import {HelperService} from './helper.service';
 import {LabelService} from './label.service';
@@ -16,7 +15,9 @@ export class ThreadService {
   ) {}
 
   retrieveSent(recipient: string) {
+    // eslint-disable-next-line no-undef
     Utilities.sleep(2000);
+    // eslint-disable-next-line no-undef
     const [thread] = GmailApp.search('from:me to:' + recipient);
     return thread;
   }
@@ -31,7 +32,7 @@ export class ThreadService {
     thread: GoogleAppsScript.Gmail.GmailThread,
     category: Category
   ) {
-    const {appName} = this.optionService.getOptions();
+    const appName = this.optionService.getAppName();
     const label = this.labelService.getChildLabel(appName, category.title);
     return thread.addLabel(label);
   }
@@ -47,6 +48,7 @@ export class ThreadService {
   }
 
   getUserThreads(email: string) {
+    // eslint-disable-next-line no-undef
     return GmailApp.search(
       'from:me to:' + email + ' OR ' + 'from:' + email + ' to:me'
     );
@@ -58,6 +60,7 @@ export class ThreadService {
     categoryLabel: string
   ) {
     const label = (appLabel + '-' + categoryLabel).toLowerCase();
+    // eslint-disable-next-line no-undef
     return GmailApp.search(
       'label:' + label + ' ' + 'from:me' + ' ' + 'to:' + email
     );
