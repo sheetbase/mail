@@ -24,7 +24,7 @@
       - [`PUT` /mail](#PUT__mail)
       - [`GET` /mail/thread](#GET__mail_thread)
       - [`GET` /mail/threads](#GET__mail_threads)
-- [Detail API reference](https://sheetbase.github.io/server)
+- [Detail API reference](https://sheetbase.github.io/mail)
 
 
 </section>
@@ -61,17 +61,17 @@ export class App {
 <h2><a name="options"><p>Options</p>
 </a></h2>
 
-| Name                                                                                 | Type                                            | Description |
-| ------------------------------------------------------------------------------------ | ----------------------------------------------- | ----------- |
-| [categories?](https://sheetbase.github.io/server/interfaces/options.html#categories) | <code>Record<string, string \| Category></code> |             |
-| [forwarding?](https://sheetbase.github.io/server/interfaces/options.html#forwarding) | <code>undefined \| string</code>                |             |
-| [templates?](https://sheetbase.github.io/server/interfaces/options.html#templates)   | <code>Record<string, Template<unknown>></code>  |             |
+| Name                                                                               | Type                                            | Description |
+| ---------------------------------------------------------------------------------- | ----------------------------------------------- | ----------- |
+| [categories?](https://sheetbase.github.io/mail/interfaces/options.html#categories) | <code>Record<string, string \| Category></code> |             |
+| [forwarding?](https://sheetbase.github.io/mail/interfaces/options.html#forwarding) | <code>undefined \| string</code>                |             |
+| [templates?](https://sheetbase.github.io/mail/interfaces/options.html#templates)   | <code>Record<string, Template<unknown>></code>  |             |
 
 </section>
 
 <section id="lib" data-note="AUTO-GENERATED CONTENT, DO NOT EDIT DIRECTLY!">
 
-<h2><a name="lib" href="https://sheetbase.github.io/server/classes/lib.html"><p>Lib</p>
+<h2><a name="lib" href="https://sheetbase.github.io/mail/classes/lib.html"><p>Lib</p>
 </a></h2>
 
 **The `Lib` class.**
@@ -79,18 +79,18 @@ export class App {
 <h3><a name="lib-properties"><p>Lib properties</p>
 </a></h3>
 
-| Name                                                                                       | Type                                                                                                                           | Description |
-| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ----------- |
-| [attachmentService](https://sheetbase.github.io/server/classes/lib.html#attachmentservice) | <code><a href="https://sheetbase.github.io/server/classes/attachmentservice.html" target="_blank">AttachmentService</a></code> |             |
-| [helperService](https://sheetbase.github.io/server/classes/lib.html#helperservice)         | <code><a href="https://sheetbase.github.io/server/classes/helperservice.html" target="_blank">HelperService</a></code>         |             |
-| [labelService](https://sheetbase.github.io/server/classes/lib.html#labelservice)           | <code><a href="https://sheetbase.github.io/server/classes/labelservice.html" target="_blank">LabelService</a></code>           |             |
-| [mailRoute](https://sheetbase.github.io/server/classes/lib.html#mailroute)                 | <code><a href="https://sheetbase.github.io/server/classes/mailroute.html" target="_blank">MailRoute</a></code>                 |             |
-| [mailService](https://sheetbase.github.io/server/classes/lib.html#mailservice)             | <code><a href="https://sheetbase.github.io/server/classes/mailservice.html" target="_blank">MailService</a></code>             |             |
-| [mailThreadRoute](https://sheetbase.github.io/server/classes/lib.html#mailthreadroute)     | <code><a href="https://sheetbase.github.io/server/classes/mailthreadroute.html" target="_blank">MailThreadRoute</a></code>     |             |
-| [mailThreadsRoute](https://sheetbase.github.io/server/classes/lib.html#mailthreadsroute)   | <code><a href="https://sheetbase.github.io/server/classes/mailthreadsroute.html" target="_blank">MailThreadsRoute</a></code>   |             |
-| [messageService](https://sheetbase.github.io/server/classes/lib.html#messageservice)       | <code><a href="https://sheetbase.github.io/server/classes/messageservice.html" target="_blank">MessageService</a></code>       |             |
-| [optionService](https://sheetbase.github.io/server/classes/lib.html#optionservice)         | <code><a href="https://sheetbase.github.io/server/classes/optionservice.html" target="_blank">OptionService</a></code>         |             |
-| [threadService](https://sheetbase.github.io/server/classes/lib.html#threadservice)         | <code><a href="https://sheetbase.github.io/server/classes/threadservice.html" target="_blank">ThreadService</a></code>         |             |
+| Name                                                                                     | Type                                                                                                                         | Description |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| [attachmentService](https://sheetbase.github.io/mail/classes/lib.html#attachmentservice) | <code><a href="https://sheetbase.github.io/mail/classes/attachmentservice.html" target="_blank">AttachmentService</a></code> |             |
+| [helperService](https://sheetbase.github.io/mail/classes/lib.html#helperservice)         | <code><a href="https://sheetbase.github.io/mail/classes/helperservice.html" target="_blank">HelperService</a></code>         |             |
+| [labelService](https://sheetbase.github.io/mail/classes/lib.html#labelservice)           | <code><a href="https://sheetbase.github.io/mail/classes/labelservice.html" target="_blank">LabelService</a></code>           |             |
+| [mailRoute](https://sheetbase.github.io/mail/classes/lib.html#mailroute)                 | <code><a href="https://sheetbase.github.io/mail/classes/mailroute.html" target="_blank">MailRoute</a></code>                 |             |
+| [mailService](https://sheetbase.github.io/mail/classes/lib.html#mailservice)             | <code><a href="https://sheetbase.github.io/mail/classes/mailservice.html" target="_blank">MailService</a></code>             |             |
+| [mailThreadRoute](https://sheetbase.github.io/mail/classes/lib.html#mailthreadroute)     | <code><a href="https://sheetbase.github.io/mail/classes/mailthreadroute.html" target="_blank">MailThreadRoute</a></code>     |             |
+| [mailThreadsRoute](https://sheetbase.github.io/mail/classes/lib.html#mailthreadsroute)   | <code><a href="https://sheetbase.github.io/mail/classes/mailthreadsroute.html" target="_blank">MailThreadsRoute</a></code>   |             |
+| [messageService](https://sheetbase.github.io/mail/classes/lib.html#messageservice)       | <code><a href="https://sheetbase.github.io/mail/classes/messageservice.html" target="_blank">MessageService</a></code>       |             |
+| [optionService](https://sheetbase.github.io/mail/classes/lib.html#optionservice)         | <code><a href="https://sheetbase.github.io/mail/classes/optionservice.html" target="_blank">OptionService</a></code>         |             |
+| [threadService](https://sheetbase.github.io/mail/classes/lib.html#threadservice)         | <code><a href="https://sheetbase.github.io/mail/classes/threadservice.html" target="_blank">ThreadService</a></code>         |             |
 
 <h3><a name="lib-methods"><p>Lib methods</p>
 </a></h3>
@@ -99,7 +99,7 @@ export class App {
 | --------------------------------------------------------------------- | ---------------------------- | ------------------------ |
 | [registerRoutes(routeEnabling?, middlewares?)](#lib-registerroutes-0) | <code>RouterService<></code> | Expose the module routes |
 
-<h4><a name="lib-registerroutes-0" href="https://sheetbase.github.io/server/classes/lib.html#registerroutes"><p><code>registerRoutes(routeEnabling?, middlewares?)</code></p>
+<h4><a name="lib-registerroutes-0" href="https://sheetbase.github.io/mail/classes/lib.html#registerroutes"><p><code>registerRoutes(routeEnabling?, middlewares?)</code></p>
 </a></h4>
 
 **Expose the module routes**
@@ -185,7 +185,7 @@ Get mail information
 
 | Name     | Type         | Description |
 | -------- | ------------ | ----------- |
-| **auth** | <a data-sref="AuthData" href="https://sheetbase.github.io/server/interfaces/authdata.html"><code>AuthData</code></a> |             |
+| **auth** | <a data-sref="AuthData" href="https://sheetbase.github.io/mail/interfaces/authdata.html"><code>AuthData</code></a> |             |
 
 **Response**
 
@@ -229,7 +229,7 @@ Get mail information
 
 | Name     | Type         | Description |
 | -------- | ------------ | ----------- |
-| **auth** | <a data-sref="AuthData" href="https://sheetbase.github.io/server/interfaces/authdata.html"><code>AuthData</code></a> |             |
+| **auth** | <a data-sref="AuthData" href="https://sheetbase.github.io/mail/interfaces/authdata.html"><code>AuthData</code></a> |             |
 
 **Response**
 
@@ -256,7 +256,7 @@ Get mail information
 
 | Name     | Type         | Description |
 | -------- | ------------ | ----------- |
-| **auth** | <a data-sref="AuthData" href="https://sheetbase.github.io/server/interfaces/authdata.html"><code>AuthData</code></a> |             |
+| **auth** | <a data-sref="AuthData" href="https://sheetbase.github.io/mail/interfaces/authdata.html"><code>AuthData</code></a> |             |
 
 **Response**
 
@@ -270,6 +270,6 @@ Get mail information
 
 ## License
 
-**@sheetbase/mail** is released under the [MIT](https://github.com/sheetbase/server/blob/master/LICENSE) license.
+**@sheetbase/mail** is released under the [MIT](https://github.com/sheetbase/mail/blob/master/LICENSE) license.
 
 </section>
